@@ -1,17 +1,16 @@
 @extends('layouts.master')
 @section('title','Posts')
 @section('content')
-<div class="card">
+<div class="card shadow-sm border-0">
     <div class="card-header">
         <a href="{{route('posts.create')}}" class="btn btn-primary float-end">Create Post</a>
         <h3>Posts</h3>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-borderless table-striped ">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Title</th>
                         <th>Author</th>
                         <th>Date</th>
@@ -21,7 +20,6 @@
                 <tbody>
                     @foreach($posts as $post)
                     <tr>
-                        <td>{{$post->id}}</td>
                         <td>{{$post->title}}</td>
                         <td>{{$post->user->name}}</td>
                         <td>{{$post->updated_at->diffForHumans()}}</td>

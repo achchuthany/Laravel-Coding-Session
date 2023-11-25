@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Create Post')
 @section('content')
-<div class="card">
+<div class="card shadow-sm border-0">
     <div class="card-header">
         <h3 class="float-start">Create Post</h3>
         <a href="{{route('posts.index')}}" class="btn btn-dark float-end">Back</a>

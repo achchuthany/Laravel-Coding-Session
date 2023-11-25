@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Show Post')
 @section('content')
-<div class="card">
+<div class="card shadow-sm border-0">
     <div class="card-header">
         <h3 class="float-start">{{ $post->title }}</h3>
         <a href="{{route('posts.index')}}" class="btn btn-dark float-end">Back</a>
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div class="card mt-4">
+<div class="card shadow-sm border-0 mt-4">
     <div class="card-header">
         <h4>Post a Comment</h4>
     </div>
@@ -31,13 +31,13 @@
     </div>
 </div>
 
-<div class="my-4 border-0 ">
+<div class="card my-4 shadow-sm border-0">
     <div class="card-header">
         <h4>Comments</h4>
     </div>
     <div class="card-body">
         @foreach($post->comments as $comment)
-        <div class="card mt-2">
+        <div class="card border-0 mt-2">
             <div class="card-body">
                 <p class="card-text">{{ $comment->comment }}</p>
             </div>
