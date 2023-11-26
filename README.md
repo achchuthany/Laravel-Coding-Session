@@ -96,7 +96,7 @@ Reference: https://laravel.com/docs/10.x/controllers#actions-handled-by-resource
 
 ### Sample Bootstrap 5 Page
 
-Update `resources/posts/index.blade.php` with the following code:
+Update `resources/view/posts/index.blade.php` with the following code:
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -141,13 +141,84 @@ Navigate to `web.php` in `routes` folder:
 
 ```
 Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
+
+Route::get('/posts/create', [App\Http\Controllers\PostController::class, 'create'])->name('posts.create');
+
+Route::post('/posts', [App\Http\Controllers\PostController::class, 'store'])->name('posts.store');
 ```
 
-List the all post in `posts/index.blade.php`:
+### Update the View
+List the all post in `resources/view/posts/index.blade.php`:
 
+```
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white">
+        <a href="{{route('posts.create')}}" class="btn btn-primary float-end">Create Post</a>
+        <h4 class="card-title">Posts</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-borderless table-striped ">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Title 1</th>
+                        <th>Author 1</th>
+                        <th>10/11/2023</th>
+                        <th>Edit|Delete</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
+```
 
+create a new post: `resources/view/posts/create.blade.php`:
 
+```
+<div class="card shadow-sm border-0">
+    <div class="card-header">
+        <h3 class="float-start">Create Post</h3>
+        <a href="{{route('posts.index')}}" class="btn btn-dark float-end">Back</a>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('posts.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="title" class="form-label">Post Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label">Post Body</label>
+                <textarea class="form-control" id="body" name="body" rows="5" required></textarea>
+            </div>
+                <button type="submit" class="btn btn-primary float-end">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+```
+
+### Update the Controller
+navigate to `App\Http\Controllers\PostController.php`:
+
+update the `index` function:
+```
+return view('posts.index');
+```
+update the `create` function:
+```
+return view('posts.create');
+```
 
 ### Making Layout
 
@@ -233,6 +304,31 @@ public function user()
 {
     return $this->belongsTo(User::class)->withTrashed();
 }
+```
+
+## Show the Posts in Details
+navigate to show view : `resources/view/posts/show.blade.php`:
+
+```
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white">
+        <h4 class="float-start card-title">Title</h4>
+        <a href="{{route('posts.index')}}" class="btn btn-dark float-end">Back</a>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Body........</p>
+    </div>
+    <div class="card-footer">
+        <p class="float-start">Created by: User</p>
+        <p class="float-end">Created at: 11/11/2023</p>
+    </div>
+</div>
+
+```
+navigate to `App\Http\Controllers\PostController.php`:
+update the `show` function
+```
+return view('posts.show');
 ```
 
 # Laravel UI
