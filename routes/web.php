@@ -103,4 +103,35 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+Route::prefix('users')->middleware('auth')->controller(App\Http\Controllers\UserController::class)->group(function () {    
+    Route::get("/",[
+        "uses" => "App\Http\Controllers\UserController@index",
+        "as" => "users.index",
+        "middleware" => "role",
+        "roles" => ["admin"]
+    ]);
+    Route::get("/{user}/edit",[
+        "uses" => "App\Http\Controllers\UserController@edit",
+        "as" => "users.edit",
+        "middleware" => "role",
+        "roles" => ["admin"]
+    ]);
+    Route::put("/{user}",[
+        "uses" => "App\Http\Controllers\UserController@update",
+        "as" => "users.update",
+        "middleware" => "role",
+        "roles" => ["admin"]
+    ]);
+    Route::delete("/{user}",[
+        "uses" => "App\Http\Controllers\UserController@destroy",
+        "as" => "users.destroy",
+        "middleware" => "role",
+        "roles" => ["admin"]
+    ]);
+    Route::put("/{user}/restore",[
+        "uses" => "App\Http\Controllers\UserController@restore",
+        "as" => "users.restore",
+        "middleware" => "role",
+        "roles" => ["admin"]
+    ]);
+});

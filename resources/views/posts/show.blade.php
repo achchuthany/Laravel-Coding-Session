@@ -2,8 +2,8 @@
 @section('title', 'Show Post')
 @section('content')
 <div class="card shadow-sm border-0">
-    <div class="card-header">
-        <h3 class="float-start">{{ $post->title }}</h3>
+    <div class="card-header bg-white">
+        <h4 class="float-start card-title">{{ $post->title }}</h4>
         <a href="{{route('posts.index')}}" class="btn btn-dark float-end">Back</a>
     </div>
     <div class="card-body">
@@ -16,8 +16,8 @@
 </div>
 
 <div class="card shadow-sm border-0 mt-4">
-    <div class="card-header">
-        <h4>Post a Comment</h4>
+    <div class="card-header bg-white">
+        <h4 class="card-title">Post a Comment</h4>
     </div>
     <div class="card-body">
         <form action="{{ route('posts.comments.store',[$post]) }}" method="POST">
@@ -32,8 +32,8 @@
 </div>
 
 <div class="card my-4 shadow-sm border-0">
-    <div class="card-header">
-        <h4>Comments</h4>
+    <div class="card-header bg-white">
+        <h4 class="card-title">Comments</h4>
     </div>
     <div class="card-body">
         @foreach($post->comments as $comment)
@@ -42,7 +42,7 @@
                 <p class="card-text">{{ $comment->comment }}</p>
             </div>
             <div class="card-footer">
-                <p class="float-start">Created by {{ $comment->user->name }} at {{ $comment->created_at->diffForHumans() }}</p>
+                <p class="float-start text-muted">Created by {{ $comment->user->name }} at {{ $comment->created_at->diffForHumans() }}</p>
                 <form action="{{ route('posts.comments.destroy', [$post, $comment]) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')

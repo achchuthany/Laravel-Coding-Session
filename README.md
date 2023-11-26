@@ -3,16 +3,16 @@
 Welcome to the Laravel Coding Session repository! This guide will walk you through the essential steps of building a Laravel application, covering installation, folder structure, CRUD operations, user authentication, and Bootstrap integration.
 
 ## Table of Contents
+- [Installation](#installation)
+    - [Create a Project](#create-a-project)
+    - [Change Initial Configuration](#change-initial-configuration)
+    - [Environment Based Configuration](#environment-based-configuration)
+    - [Create Post View without Database](#create-post-view-without-database)
+    - [Actions Handled By Resource Controller](#actions-handled-by-resource-controller)
+    - [Sample Bootstrap 5 Page](#sample-bootstrap-5-page)
 
-1. [Installation](#installation)
-    1. [Create a Project](#create-a-project)
-    2. [Change Initial Configuration](#change-initial-configuration)
-    3. [Environment Based Configuration](#change-initial-configuration)
-2. [Understanding Folder Structure](#folder-structure)
-3. [Creating a Post Model](#post-model)
-4. [Implementing CRUD Operations](#crud-operations)
-5. [Implementing User Authentication](#user-authentication)
-6. [Installing Bootstrap](#installing-bootstrap)
+
+
 
 ## Installation
 
@@ -54,7 +54,7 @@ generate the app encryption key: encrypting cookies and session
 php artisan key:generate
 ```
 
-## Create Post
+## Create Post View without Database
 
 Create Model, Controller, View by using command: 
 ```
@@ -136,6 +136,19 @@ Update `resources/posts/index.blade.php` with the following code:
 </html>
 ```
 
+### Update the Route 
+Navigate to `web.php` in `routes` folder: 
+
+```
+Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
+```
+
+List the all post in `posts/index.blade.php`:
+
+
+
+
+
 ### Making Layout
 
 Reference: https://laravel.com/docs/10.x/blade#defining-a-layout
@@ -167,18 +180,59 @@ Reference: https://laravel.com/docs/10.x/blade#defining-a-layout
 <!-- resources/views/posts/index.blade.php -->
  
 @extends('layouts.master')
- 
 @section('title', 'Page Title')
- 
-@section('sidebar')
-    @parent
- 
-    <p>This is appended to the master sidebar.</p>
-@endsection
- 
 @section('content')
     <p>This is my body content.</p>
 @endsection
+```
+
+Update the remaining views of posts by above layout.
+
+
+## Update Database Migration for Post Model
+
+Laravel Installation have the user migration, lets update the posts table
+
+`database/migrations/yyyy_mm_dd_nnnnnn_posts_table.php`
+
+```
+public function up(): void
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title',100);
+            $table->text('body',1000);
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade'); // foreign key
+            $table->timestamps();
+        });
+    }
+```
+
+## Update Relationships of each Model
+
+User has May Posts, Post belongs to User 
+
+User->Post : (1->N)
+
+1. User Model
+
+```
+public function posts()
+{
+    return $this->hasMany(Post::class);
+}
+```
+
+2. Post Model
+
+```
+public function user()
+{
+    return $this->belongsTo(User::class)->withTrashed();
+}
 ```
 
 # Laravel UI
@@ -194,3 +248,45 @@ php artisan ui bootstrap --auth
 ```
  php artisan make:migration --table=users add_user_type_to_user
 ```
+
+## Soft Deleting User
+Reference: https://laravel.com/docs/10.x/eloquent#soft-deleting
+
+Add the following in user model
+```
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+....
+
+ use SoftDeletes;
+```
+
+ add the deleted_at column to `users` table
+
+ ```
+ php artisan make:migration --table=users add_deleted_at_column_to_users
+ ```
+
+add the following in migration file
+ ```
+
+Schema::table('flights', function (Blueprint $table) {
+    $table->softDeletes();
+});
+ 
+Schema::table('flights', function (Blueprint $table) {
+    $table->dropSoftDeletes();
+});
+ 
+ ```
+
+
+ Update the Post, Comment Model to fetch deleted user
+
+ `Post,Comment Model`
+
+ ```
+    public function user(){
+        return $this->belongsTo(User::class)->withTrashed();
+    }
+ ```

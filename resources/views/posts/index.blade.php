@@ -2,9 +2,9 @@
 @section('title','Posts')
 @section('content')
 <div class="card shadow-sm border-0">
-    <div class="card-header">
+    <div class="card-header bg-white">
         <a href="{{route('posts.create')}}" class="btn btn-primary float-end">Create Post</a>
-        <h3>Posts</h3>
+        <h4 class="card-title">Posts</h4>
     </div>
     <div class="card-body">
         <div class="table-responsive">
