@@ -386,3 +386,42 @@ Schema::table('flights', function (Blueprint $table) {
         return $this->belongsTo(User::class)->withTrashed();
     }
  ```
+
+
+ ## Generating 
+
+Create Post 
+
+```
+ php artisan make:factory PostFactory
+```
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\Post;
+
+class PostFactory extends Factory
+{
+    protected $model = Post::class;
+
+    public function definition(): array
+    {
+        return [
+            'title'         => $this->faker->realText(100),
+            'body'          => $this->faker->text(1000),
+            'user_id'       => User::factory()->create()->id,
+            'created_at'    => now(),
+            'updated_at'    => now()
+        ];
+    }
+}
+
+```
+
+ ```
+ php artisan tinker
+ Post::factory()->count(10)->create();
+ ```
