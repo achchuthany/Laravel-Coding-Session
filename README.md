@@ -24,7 +24,8 @@ Welcome to the Laravel Coding Session repository! This guide will walk you throu
         - If your Node.js version is not compatible, Visit the official site and install (https://nodejs.org/en)
 
 2. If your PHP version is greater than 8.1, download and install Composer. https://getcomposer.org
-   
+3. Enable the `zip` extension in `php.ini` by locating the `extension=zip` line and removing the `;` at the beginning of the `extension=zip`."
+
 ### Create a Project
 
 Follow these steps to install Laravel on your machine:
