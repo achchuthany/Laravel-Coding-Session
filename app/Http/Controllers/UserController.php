@@ -36,8 +36,12 @@ class UserController extends Controller
             'password' => 'nullable|min:6|max:255',
             'role' => 'required|in:user,admin',
         ]);
+        //dd($request->all());
         $user = User::withTrashed()->find($user);
-        $user->update($request->except('password'));
+        $user->role=$request->role;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
