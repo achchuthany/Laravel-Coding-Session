@@ -15,7 +15,16 @@ Welcome to the Laravel Coding Session repository! This guide will walk you throu
 
 
 ## Installation
+### Laravel 10 Requirements
+1. Open a terminal or command prompt.
+    - Type `php -v` and press Enter to check your PHP version.
+        - Ensure it's PHP 8.1 or later.
+        - If your PHP version is not compatible, Visit the official site & install (https://www.apachefriends.org)
+    - Type `node -v` and press Enter to check your Node.js version.
+        - If your Node.js version is not compatible, Visit the official site and install (https://nodejs.org/en)
 
+2. If your PHP version is greater than 8.1, download and install Composer. https://getcomposer.org
+   
 ### Create a Project
 
 Follow these steps to install Laravel on your machine:
