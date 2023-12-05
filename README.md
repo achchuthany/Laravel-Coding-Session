@@ -405,6 +405,10 @@ Create Post
 ```
  php artisan make:factory PostFactory
 ```
+
+Update the PostFactory in `Database\Factories`
+
+```
 <?php
 
 namespace Database\Factories;
@@ -430,8 +434,8 @@ class PostFactory extends Factory
 }
 
 ```
-
- ```
+Generate Data
+```
  php artisan tinker
  Post::factory()->count(10)->create();
  ```
