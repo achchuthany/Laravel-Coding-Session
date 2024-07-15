@@ -434,7 +434,7 @@ class PostFactory extends Factory
 }
 
 ```
-Generate Data
+Generate Data 1
 ```
  php artisan tinker
  Post::factory()->count(10)->create();
