@@ -10,6 +10,20 @@ Welcome to the Laravel Coding Session repository! This guide will walk you throu
     - [Create Post View without Database](#create-post-view-without-database)
     - [Actions Handled By Resource Controller](#actions-handled-by-resource-controller)
     - [Sample Bootstrap 5 Page](#sample-bootstrap-5-page)
+    - [Update the Route](#update-the-route)
+    - [Update the View](#update-the-view)
+    - [Update the Controller](#update-the-controller)
+    - [Making Layout](#making-layout)
+    - [Extending A Layout](#extending-a-layout)
+    - [Update Database Migration for Post Model](#update-database-migration-for-post-model)
+    - [Update Relationships of each Model](#update-relationships-of-each-model)
+    - [Show the Posts in Details](#show-the-posts-in-details)
+    - [Laravel UI](#laravel-ui)
+    - [Soft Deleting User](#soft-deleting-user)
+    - [Generating](#generating)
+    - [Create Post](#create-post)
+    - [Update the PostFactory in `Database\Factories`](#update-the-postfactory-in-databasefactories)
+    - [Generate Data 1](#generate-data-1)
 
 
 
@@ -22,9 +36,15 @@ Welcome to the Laravel Coding Session repository! This guide will walk you throu
         - If your PHP version is not compatible, Visit the official site & install (https://www.apachefriends.org)
     - Type `node -v` and press Enter to check your Node.js version.
         - If your Node.js version is not compatible, Visit the official site and install (https://nodejs.org/en)
-
-2. If your PHP version is greater than 8.1, download and install Composer. https://getcomposer.org
-3. Enable the `zip` extension in `php.ini` by locating the `extension=zip` line and removing the `;` at the beginning of the `extension=zip`."
+2. Set Up Environment Variable for Windows
+    - Right-click on the Start menu and select System.
+    - Click on Advanced system settings.
+    - Click on Environment Variables.
+    - Under System variables, click on Path and then Edit.
+    - Click on New and add the path to your PHP and MariaDB directories.
+    - Click OK to save the changes.
+3. If your PHP version is greater than 8.1, download and install Composer. https://getcomposer.org
+4. Enable the `zip` extension in `php.ini` by locating the `extension=zip` line and removing the `;` at the beginning of the `extension=zip`."
 
 ### Create a Project
 
